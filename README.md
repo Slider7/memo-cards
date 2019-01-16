@@ -1,2 +1,2 @@
 # memo-cards
-Memory game
+Игра - найди парную карточку
