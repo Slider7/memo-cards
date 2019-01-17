@@ -8,7 +8,12 @@ const CardsTable = (props) => {
 	for (var i = 0; i < props.rows; i++) {
 		for (var j = 0; j < props.cols; j++) {
 			let cardId = i + "_" + j;
-      cardClass = (props.cards[i][j] == 0) ? "card-closed" : "card-opened";
+			switch (props.cards[i][j]){
+				case 0: cardClass = "card-closed"; break;
+				case 1: cardClass = "card-opening"; break;
+				case -10: cardClass = "card-closing"; break;
+			}
+
 			cardLines.push(
 				<Card
 					cardClass = {cardClass}
@@ -16,7 +21,7 @@ const CardsTable = (props) => {
 					cardId={cardId}
 					row={i}
 					col={j}
-					selectCard={props.selectCard}
+					clickCard={props.clickCard}
 				/>
 			)
 		}

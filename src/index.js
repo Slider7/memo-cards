@@ -17,36 +17,65 @@ class Main extends React.Component {
 		}
   }
 
-  selectCard = (row, col) =>{
-  	/*let gridCopy = copyArray(this.state.gridFull);
-  	gridCopy[row][col] = !gridCopy[row][col];
+  clickCard = (row, col) =>{
+  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
+    
+  	if (cardsArr.indexOf(1) < 0){
+  		cardsArr[row][col] = 1
+  	} else {
+  		if (cardsArr[row][col] === 0){
+  			cardsArr[row][col] = -1;
+  		}
+  	}
+    
   	this.setState({
-  		gridFull: gridCopy
-  	})*/
+  		cards: cardsArr
+  	});
+
+  	console.log(this.state.cards);
+  }
+
+   closeCard = (row, col) =>{
+  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
+  	cardsArr[row][col] = 0;
+  	this.setState({
+  		cards: cardsArr
+  	});
   }
 
   getHint = () => {
-    let a = 0;
-    a = a * 3;
+    //
   }
 
   initBoard = () => {
-  	//генерируем карточки
-  	/*let gridCopy = copyArray(this.state.gridFull);
+  	clearInterval(this.intervalId);
+    this.intervalId = setInterval(this.play, 1000);
+  }
+
+  play = () =>{
+  	//Основная функция - алгоритм игры
+  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
   	for(let i = 0; i < this.rows; i++){
   		for(let j = 0; j < this.cols; j++){
-  			if (Math.floor(Math.random() * 4) === 1) {
-  				gridCopy[i][j] = true;
+  			  if (cardsArr[i][j] === -1) {
+  			  	cardsArr[i][j] === -10;
+						break;
+  			  };
+  			  if (cardsArr[i][j] === -10) {
+  			  	cardsArr[i][j] === 0;
+						break;
+  			  };
   			}	
   		}
-  	}
-  	this.setState({ gridFull: gridCopy })	*/
-  }
+  	this.setState({
+  		cards: cardsArr
+  	});	
+ }
 
   componentDidMount(){
   	this.initBoard();
   }
-
+  
   render() {
     return (
       <div className="mainDiv">
@@ -58,7 +87,8 @@ class Main extends React.Component {
         <CardsTable
         	cols = {this.cols}
         	rows = {this.rows}
-        	selectCard = {this.selectCard}
+        	clickCard = {this.clickCard}
+        	closeCard = {this.closeCard}
         	cards = {this.state.cards}
         />
       </div>
