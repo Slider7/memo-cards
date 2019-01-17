@@ -1,0 +1,33 @@
+.game-title{
+  text-align: center;
+  color: darkgreen;
+}
+
+.mainDiv{
+  width: 100%;
+  display: flex;	
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardTable{
+  margin: 10px auto;
+}
+
+.default-card{
+  width: 120px;
+  height: 120px;
+  border-radius: 5px;	
+  border: 1px solid darkgreen; 
+  display: inline-block;
+  margin: 3px;
+}
+
+.card-closed{
+  background: linear-gradient(135deg, #b4e391 0%,#15a826 50%,#b4e391 100%);
+}
+
+.card-opened{
+
+}
