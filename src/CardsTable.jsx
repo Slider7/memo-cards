@@ -8,11 +8,9 @@ const CardsTable = (props) => {
 	for (var i = 0; i < props.rows; i++) {
 		for (var j = 0; j < props.cols; j++) {
 			let cardId = i + "_" + j;
-			switch (props.cards[i][j]){
-				case 0: cardClass = "card-closed"; break;
-				case 1: cardClass = "card-opening"; break;
-				case -10: cardClass = "card-closing"; break;
-			}
+			if (props.cards[i][j].closed == false){
+				cardClass = "card-opening";
+			} else cardClass = "card-closing card-closed";
 
 			cardLines.push(
 				<Card

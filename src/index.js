@@ -13,34 +13,56 @@ class Main extends React.Component {
 		this.cols = 4;
     this.state = {
       //2-мерн.массив значений false-состояние клеток на доске
-			cards: Array(this.rows).fill().map(() => Array(this.cols).fill(0))
+			cards: Array(this.rows).fill().map(() => Array(this.cols).fill({
+				name: "",
+				closed: true,
+				finished: false
+			})),
+			currCardName: "",
+			cRow: -1,
+			cCol: -1,
+			openedCards: 0,
+			active: true
 		}
   }
 
   clickCard = (row, col) =>{
-  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
-    
-  	if (cardsArr.indexOf(1) < 0){
-  		cardsArr[row][col] = 1
-  	} else {
-  		if (cardsArr[row][col] === 0){
-  			cardsArr[row][col] = -1;
-  		}
-  	}
-    
-  	this.setState({
-  		cards: cardsArr
-  	});
-
-  	console.log(this.state.cards);
-  }
-
-   closeCard = (row, col) =>{
-  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
-  	cardsArr[row][col] = 0;
-  	this.setState({
-  		cards: cardsArr
-  	});
+  	if (this.state.active) {
+	  	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
+	  	let currName = cardsArr[row][col].name;
+	  	let aRow = this.state.cRow;
+	  	let aCol = this.state.cCol;
+	  	let count = this.state.openedCards;
+	  	//проверка это те же самая карта или нет, если да, то перевернем назад и уменьшаем счетчик открытых карт
+/*	  	console.log(row + '  ' + col);
+	  	console.log(aRow + '  ' + aCol);*/
+	  	if (aRow === row && aCol === col ) {
+	  		cardsArr[row][col].closed = true;
+	  		aRow = -1; 
+	  		aCol = -1;
+	  		count = count - 1;
+	  		currName = '';
+	  	} else { //если это другая карта, то откроем и увеличиваем счетчик открытых карт
+	  		cardsArr[row][col].closed = false;
+	  		aRow = row; 
+	  		aCol = col; 
+	  		count = count + 1;
+	  	}
+  
+	  	this.setState({
+	  		cards: cardsArr,
+	  		currCardName: currName,
+	  		cRow: aRow,
+	  		cCol: aCol,
+	  		active: (count < 2),//если открытых карт меньше двух то поле активно
+	  		openedCards: count
+	  	})
+	  	
+	  	//если открытых карт 2 то проверяем поле через 1сек.
+	  	if (count === 2) {
+	  		setTimeout(this.checkCards, 1000); 
+	  	};
+	  }; 
   }
 
   getHint = () => {
@@ -48,29 +70,42 @@ class Main extends React.Component {
   }
 
   initBoard = () => {
-  	clearInterval(this.intervalId);
-    this.intervalId = setInterval(this.play, 1000);
-  }
+  	this.setState({
+      //2-мерн.массив значений false-состояние клеток на доске
+			cards: Array(this.rows).fill().map(() => Array(this.cols).fill({
+				name: "",
+				closed: true,
+				finished: false
+			})),
+			currCardName: "",
+			cRow: -1,
+			cCol: -1,
+			openedCards: 0,
+			active: true
+		})
+  };
 
-  play = () =>{
-  	//Основная функция - алгоритм игры
+  checkCards = () =>{
+  	//проверка массива карт
   	let cardsArr = JSON.parse(JSON.stringify( this.state.cards ));
   	for(let i = 0; i < this.rows; i++){
   		for(let j = 0; j < this.cols; j++){
-  			  if (cardsArr[i][j] === -1) {
-  			  	cardsArr[i][j] === -10;
-						break;
+  			if (cardsArr[i][j].finished === false){
+  				if (cardsArr[i][j].closed === false) {
+  			  	cardsArr[i][j].closed = true;
   			  };
-  			  if (cardsArr[i][j] === -10) {
-  			  	cardsArr[i][j] === 0;
-						break;
-  			  };
-  			}	
-  		}
-  	this.setState({
-  		cards: cardsArr
-  	});	
- }
+  			}
+  		 }
+  	}	
+	  this.setState({
+	  	cards: cardsArr,
+	  	currName: '',
+			cRow: -1,
+			cCol: -1,
+	  	openedCards: 0,
+	  	active: true
+	  });
+  }
 
   componentDidMount(){
   	this.initBoard();
@@ -95,6 +130,7 @@ class Main extends React.Component {
     )
   }
 }
+
 
 const AppWithHot = hot(module)(Main);
 
