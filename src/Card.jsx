@@ -2,15 +2,16 @@ import React from 'react';
 
 function Card(props) {
 	const handleClick = () => {
-	  props.clickCard(props.row, props.col);
+	  props.clickCard(props.id);
 	}
 
   return (
-	  <div 
+	  <img 
 	    className={props.cardClass + " default-card"} 
-	    id={props.cardId}
-	    onClick = {handleClick}>
-	  </div>
+	    onClick = {handleClick} 
+      alt = ""
+      src = {"images/" + props.img + ".jpg"}
+	  />
   ) 
 }
 

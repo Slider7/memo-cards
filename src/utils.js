@@ -1,14 +1,15 @@
 export const shuffle = (array) => {
-  let arr = [], n = array.length, i = 0;
+  let n = array.length, i = 0;
   var temp;
 
   while (n > 0){
   	let k = Math.floor(Math.random() * n);
-  	n = n - 1;
+  	n--;
   	temp = array[n];
   	array[n] = array[k];
   	array[k] = temp;
   }
+  return (array);
 }
 
 export const copyArray = (array) => {
