@@ -9,10 +9,15 @@ const CardsTable = (props) => {
 	var cardClass = "", k = 1;
 
 	for (var i = 0; i < props.cards.length; i++) {
+		cardClass = props.cards[i].opened ?  "card-opened" : "card-closed" ;
+		
+		if (props.cards[i].finished) { cardClass = "card-finished" }
+
 		cardsArray.push(
 			<Card
 				cardClass = {cardClass}
-				key = {props.cards[i].id}
+				key = {i}
+				index = {i}
 				id = {props.cards[i].id}
 				img = {props.cards[i].img}
 				clickCard = {props.clickCard}

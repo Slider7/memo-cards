@@ -27,29 +27,67 @@ class Main extends React.Component {
 		for (let i = 0; i < n; i++) {
 			arr.push({
 				id: k,
-				img: i + 1
+				img: i + 1,
+				opened: false,
+				finished: false
 			});
 
 			k++;
 
 			arr.push({
 				id: k,
-				img: i + 1
+				img: i + 1,
+				opened: false,
+				finished: false
 			});
 
 			k++;
 		}
 		return ( shuffle(arr) );
   }
+  
+  getCard = (id) =>{
+  	for (let i = 0; i < this.state.cards.length; i++){
+  		if (this.state.cards[i].id === id) {
+  			return (this.state.cards[i])
+  		}
+  	}
+  } 
+
+
+  clickCard = (id, idx) => {
+  	let arr = copyArray(this.state.cards);
+  	let currId = this.state.currCardId, 
+  			openedCount = this.state.openedCount,
+  			finishedCount = this.state.finishedCount;
     
-  clickCard = (id) => {
-  	/*
-  	//если открытых карт 2 то проверяем поле через 1сек.
-  	if (count === 2) {
-  		setTimeout(this.checkCards, 1000); 
-  	};
-  	*/
-  	alert(id);
+  	if (this.getCard(id).finished === false){//если карта не отгадана
+  		if (this.state.openedCount < 2 ) {
+  			if ( currId < 0 ) {
+					arr[idx].opened = true;
+					currId = id;
+					openedCount++;
+  			} else {
+					arr[idx].opened = true;
+					openedCount++;
+  			  if (arr[idx].img === this.getCard(currId).img) {
+  			  	arr[idx].finished = true;	
+  			  	finishedCount++;
+  			  }
+  			}
+  		}
+  		this.setState({
+  			openedCount: openedCount,
+  			finishedCount: finishedCount,
+  			currCardId: currId,
+  			cards: arr 
+  		});
+  	}
+
+  	if (this.state.openedCount === 2) {//если открытых карт 2 то проверяем поле через 1.5сек.
+  		setTimeout(this.checkCards(), 1500); 
+		};
+
   }
 
   getHint = () => {
@@ -66,7 +104,20 @@ class Main extends React.Component {
   };
 
   checkCards = () => {
-  	//проверка массива карт
+  	let arr = copyArray(this.state.cards),
+  			finishedCount = this.state.finishedCount;
+
+  	for (let i = 0; i < arr.length; i++){
+  		if (arr[i].opened && !arr[i].finished) {
+  			arr[i].opened = false;
+  		}
+  	}
+  	this.setState({
+  		openedCount: 0,
+  		finishedCount: finishedCount,
+  		currCardId: -1,
+  		cards: arr
+  	})
   }
 
   componentDidMount(){
