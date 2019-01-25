@@ -13,7 +13,6 @@ class Main extends React.Component {
     super();
 		this.cols = 6;
 		this.cardCount = 12;
-
 		this.state = {
 			openedCount: 0,
 			finishedCount: 0,
@@ -46,64 +45,56 @@ class Main extends React.Component {
 		return ( shuffle(arr) );
   }
   
-  getCard = (id) =>{
-  	for (let i = 0; i < this.state.cards.length; i++){
-  		if (this.state.cards[i].id === id) {
-  			return (this.state.cards[i])
+  getItemById = (array, id) =>{
+  	for (let i = 0; i < array.length; i++){
+  		if (array[i].id === id) {
+  			return (array[i])
   		}
   	}
   } 
 
 
   clickCard = (id, idx) => {
-  	let arr = copyArray(this.state.cards);
-  	let currId = this.state.currCardId, 
-  			openedCount = this.state.openedCount,
-  			finishedCount = this.state.finishedCount;
-    
-  	if (this.getCard(id).finished === false){//если карта не отгадана
-  		if (this.state.openedCount < 2 ) {
-  			if ( currId < 0 ) {
-					arr[idx].opened = true;
-					currId = id;
-					openedCount++;
-  			} else {
-					arr[idx].opened = true;
-					openedCount++;
-  			  if (arr[idx].img === this.getCard(currId).img) {
-  			  	arr[idx].finished = true;	
-  			  	finishedCount++;
-  			  }
-  			}
-  		}
-  		this.setState({
-  			openedCount: openedCount,
-  			finishedCount: finishedCount,
-  			currCardId: currId,
-  			cards: arr 
-  		});
+  	if (this.state.openedCount === 2) {
+  		return
   	}
 
-  	if (this.state.openedCount === 2) {//если открытых карт 2 то проверяем поле через 1.5сек.
-  		setTimeout(this.checkCards(), 1500); 
-		};
+		if (id === this.state.currCardId) {
+			this.closeCards()
+  		return 
+  	}  	
 
+  	if (this.getItemById(this.state.cards, id).finished === false){//если карта не отгадана
+	  	let arr = copyArray(this.state.cards);
+	  	let currId = this.state.currCardId, 
+	  			openedCount = this.state.openedCount,
+	  			finishedCount = this.state.finishedCount;
+  	
+  		if (this.state.openedCount < 2 ) {
+  			if ( currId < 0 ) currId = id; 
+					arr[idx].opened = true;
+					openedCount++;
+
+				this.setState({
+					openedCount: openedCount,
+					finishedCount: finishedCount,
+					currCardId: currId,
+					cards: arr 
+				})
+				
+				if (openedCount === 2) {
+			  	let twinFound = false;
+			  	if (arr[idx].img === this.getItemById(arr, currId).img) {
+				  	setTimeout(() => {this.markTwins(id, currId)}, 600)
+				  } else {
+				  	setTimeout(() => {this.closeCards()}, 1200)
+				  }
+				}
+  		}	
+  	}
   }
-
-  getHint = () => {
-    //
-  }
-
-  initBoard = () =>{
-  	this.setState({
-			openedCount: 0,
-			finishedCount: 0,
-			currCardId: -1,
-			cards: this.prepareCardsStateArray(this.cardCount)
-  	})
-  };
-
-  checkCards = () => {
+  
+  closeCards = () => {
   	let arr = copyArray(this.state.cards),
   			finishedCount = this.state.finishedCount;
 
@@ -119,6 +110,33 @@ class Main extends React.Component {
   		cards: arr
   	})
   }
+
+  markTwins = (id1, id2) =>{
+  	let arr = copyArray(this.state.cards),
+  			finishedCount = this.state.finishedCount;
+  	this.getItemById(arr, id1).finished = true;
+  	this.getItemById(arr, id2).finished = true;
+
+  	this.setState({
+  		openedCount: 0,
+  		finishedCount: finishedCount + 2,
+  		currCardId: -1,
+  		cards: arr
+  	})
+  }
+
+  getHint = () => {
+    //
+  }
+
+  initBoard = () =>{
+  	this.setState({
+			openedCount: 0,
+			finishedCount: 0,
+			currCardId: -1,
+			cards: this.prepareCardsStateArray(this.cardCount)
+  	})
+  };
 
   componentDidMount(){
   	this.initBoard();

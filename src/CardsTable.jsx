@@ -9,7 +9,7 @@ const CardsTable = (props) => {
 	var cardClass = "", k = 1;
 
 	for (var i = 0; i < props.cards.length; i++) {
-		cardClass = props.cards[i].opened ?  "card-opened" : "card-closed" ;
+		cardClass = props.cards[i].opened ?  "card-opened" : "card-closing" ;
 		
 		if (props.cards[i].finished) { cardClass = "card-finished" }
 
