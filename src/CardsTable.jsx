@@ -12,14 +12,14 @@ const CardsTable = (props) => {
 		cardClass = props.cards[i].opened ?  "card-opened" : "card-closing" ;
 		
 		if (props.cards[i].finished) { cardClass = "card-finished" }
-
+    
 		cardsArray.push(
 			<Card
 				cardClass = {cardClass}
 				key = {i}
 				index = {i}
 				id = {props.cards[i].id}
-				img = {props.cards[i].img}
+				img = {props.cards[i].opened ? props.cards[i].img : 'card-back'}
 				clickCard = {props.clickCard}
 			/>
 		)

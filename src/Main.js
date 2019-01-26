@@ -17,7 +17,8 @@ class Main extends React.Component {
 			openedCount: 0,
 			finishedCount: 0,
 			currCardId: -1,
-			cards: []
+			cards: [],
+			clickCount: 0
 		}
   }
   
@@ -68,8 +69,9 @@ class Main extends React.Component {
 	  	let arr = copyArray(this.state.cards);
 	  	let currId = this.state.currCardId, 
 	  			openedCount = this.state.openedCount,
-	  			finishedCount = this.state.finishedCount;
-  	
+	  			finishedCount = this.state.finishedCount,
+	  			clickCount = this.state.clickCount;
+
   		if (this.state.openedCount < 2 ) {
   			if ( currId < 0 ) currId = id; 
 					arr[idx].opened = true;
@@ -79,7 +81,8 @@ class Main extends React.Component {
 					openedCount: openedCount,
 					finishedCount: finishedCount,
 					currCardId: currId,
-					cards: arr 
+					cards: arr,
+					clickCount: clickCount + 1
 				})
 				
 				if (openedCount === 2) {
@@ -87,7 +90,7 @@ class Main extends React.Component {
 			  	if (arr[idx].img === this.getItemById(arr, currId).img) {
 				  	setTimeout(() => {this.markTwins(id, currId)}, 600)
 				  } else {
-				  	setTimeout(() => {this.closeCards()}, 1200)
+				  	setTimeout(() => {this.closeCards()}, 1000)
 				  }
 				}
   		}	
@@ -123,6 +126,14 @@ class Main extends React.Component {
   		currCardId: -1,
   		cards: arr
   	})
+
+  	if (this.state.finishedCount === this.state.cards.length){
+  		setTimeout(() => {this.showResult()}, 700);
+  	}
+  }
+
+  showResult = () =>{
+
   }
 
   getHint = () => {
@@ -134,7 +145,8 @@ class Main extends React.Component {
 			openedCount: 0,
 			finishedCount: 0,
 			currCardId: -1,
-			cards: this.prepareCardsStateArray(this.cardCount)
+			cards: this.prepareCardsStateArray(this.cardCount),
+			clickCount: 0
   	})
   };
 

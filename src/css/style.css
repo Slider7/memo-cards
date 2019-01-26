@@ -25,7 +25,7 @@
 }
 
 .card-finished{
-  /*background: linear-gradient(135deg, #b4e391 0%,#15a826 50%,#b4e391 100%);*/
+  
   border: 1px solid blue;
   opacity: 0.75;
   filter: alpha(opacity = 75);
@@ -50,22 +50,22 @@
  */
 @-webkit-keyframes flip1 {
   0% {
-    -webkit-transform: rotate3d(0, 1, 0, 0deg);
-            transform: rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: rotate3d(0, 1, 0, -180deg);
+            transform: rotate3d(0, 1, 0, -180deg);
   }
   100% {
-    -webkit-transform: rotate3d(0, 1, 0, 180deg);
-            transform: rotate3d(0, 1, 0, 180deg);
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+            transform: rotate3d(0, 1, 0, 0deg);
   }
 }
 @keyframes flip2 {
   0% {
-    -webkit-transform: rotate3d(0, 1, 0, 0deg);
-            transform: rotate3d(0, 1, 0, 0deg);
+    -webkit-transform: rotate3d(0, 1, 0, -180deg);
+            transform: rotate3d(0, 1, 0, -180deg);
   }
   100% {
-    -webkit-transform: rotate3d(0, 1, 0, 180deg);
-            transform: rotate3d(0, 1, 0, 180deg);
+    -webkit-transform: rotate3d(0, 1, 0, 0deg);
+            transform: rotate3d(0, 1, 0, 0deg);
   }
 }
 
