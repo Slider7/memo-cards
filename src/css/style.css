@@ -43,6 +43,17 @@
 	        animation: flip2 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
+.result{
+  position: fixed;
+  z-index: 99;
+  background: white;
+  width: 50%;
+  height: 50%;
+  top: 25%;
+  margin: auto;
+  background-color: yellow;
+}
+
 /*
  * ----------------------------------------
  * animation flip

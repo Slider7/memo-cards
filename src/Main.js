@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { hot } from 'react-hot-loader';
 import CardsTable from './CardsTable';
+import Result from './Result';
 import { Button, ButtonGroup } from 'reactstrap';
 import './css/style.css';
 import { copyArray, shuffle } from './utils.js';
@@ -150,6 +151,14 @@ class Main extends React.Component {
   	})
   };
 
+  closeResult = () => {
+
+  }
+
+  checkResult = () => {
+    return (true)
+  }
+
   componentDidMount(){
   	this.initBoard();
   }
@@ -157,11 +166,15 @@ class Main extends React.Component {
   render() {
     return (
       <div className="mainDiv">
+      	
         <h2 className="game-title">Игра на запоминание карточек</h2>
         <ButtonGroup>
           <Button color="primary" onClick={this.initBoard}>Рестарт</Button>
           <Button color="warning" onClick={this.getHint}>Подсказка</Button>
         </ButtonGroup>
+        
+        <Result isOpen={this.checkResult} onClose={this.closeResult}/>
+
         <CardsTable
         	clickCard = {this.clickCard}
         	cardCount = {this.cardCount}
