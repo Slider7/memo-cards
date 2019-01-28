@@ -19,7 +19,8 @@ class Main extends React.Component {
 			finishedCount: 0,
 			currCardId: -1,
 			cards: [],
-			clickCount: 0
+			clickCount: 0,
+			showResult: false
 		}
   }
   
@@ -129,12 +130,8 @@ class Main extends React.Component {
   	})
 
   	if (this.state.finishedCount === this.state.cards.length){
-  		setTimeout(() => {this.showResult()}, 700);
+  		setTimeout(() => { this.setState({ showResult: true }) }, 500);
   	}
-  }
-
-  showResult = () =>{
-
   }
 
   getHint = () => {
@@ -147,16 +144,17 @@ class Main extends React.Component {
 			finishedCount: 0,
 			currCardId: -1,
 			cards: this.prepareCardsStateArray(this.cardCount),
-			clickCount: 0
+			clickCount: 0,
+			showResult: false
   	})
   };
 
   closeResult = () => {
-
+    this.initBoard()
   }
 
   checkResult = () => {
-    return (true)
+    return (this.state.finishedCount == this.state.cards.length);
   }
 
   componentDidMount(){
@@ -173,7 +171,7 @@ class Main extends React.Component {
           <Button color="warning" onClick={this.getHint}>Подсказка</Button>
         </ButtonGroup>
         
-        <Result isOpen={this.checkResult} onClose={this.closeResult}/>
+        <Result isOpen={this.state.showResult} onClose={this.closeResult}/>
 
         <CardsTable
         	clickCard = {this.clickCard}

@@ -47,11 +47,16 @@
   position: fixed;
   z-index: 99;
   background: white;
-  width: 50%;
-  height: 50%;
-  top: 25%;
-  margin: auto;
+  width: 60%;
+  height: 60%;
+  top: 20%;
   background-color: yellow;
+  border: 1px solid darkgrey;
+  border-radius: 7px;
+}
+
+.closed{
+  display: none;
 }
 
 /*
