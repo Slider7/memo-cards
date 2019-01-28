@@ -34,13 +34,13 @@
 }
 
 .card-opened{
-	-webkit-animation: flip1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	-webkit-animation: flip1 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip1 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 .card-closing{
-	-webkit-animation: flip2 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: flip2 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	-webkit-animation: flip2 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip2 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 .result{
@@ -68,10 +68,20 @@
   0% {
     -webkit-transform: rotate3d(0, 1, 0, -180deg);
             transform: rotate3d(0, 1, 0, -180deg);
+    opacity: 0.0;
+    filter: alpha(opacity = 0);
+  }
+  50%{
+    -webkit-transform: rotate3d(0, 1, 0, -90deg);
+            transform: rotate3d(0, 1, 0, -90deg);
+    opacity: 0.50;
+    filter: alpha(opacity = 50);
   }
   100% {
     -webkit-transform: rotate3d(0, 1, 0, 0deg);
             transform: rotate3d(0, 1, 0, 0deg);
+    opacity: 1.0;
+    filter: alpha(opacity = 100);
   }
 }
 @keyframes flip2 {
@@ -82,32 +92,6 @@
   100% {
     -webkit-transform: rotate3d(0, 1, 0, 0deg);
             transform: rotate3d(0, 1, 0, 0deg);
-  }
-}
-
-/*
- * ----------------------------------------
- * animation flip
- * ----------------------------------------
- */
-@-webkit-keyframes flipl {
-  0% {
-    -webkit-transform: rotate3d(0, 1, 0, 0deg);
-            transform: rotate3d(0, 1, 0, 0deg);
-  }
-  100% {
-    -webkit-transform: rotate3d(0, 1, 0, -180deg);
-            transform: rotate3d(0, 1, 0, -180deg);
-  }
-}
-@keyframes flip1 {
-  0% {
-    -webkit-transform: rotate3d(0, 1, 0, 0deg);
-            transform: rotate3d(0, 1, 0, 0deg);
-  }
-  100% {
-    -webkit-transform: rotate3d(0, 1, 0, -180deg);
-            transform: rotate3d(0, 1, 0, -180deg);
   }
 }
 
