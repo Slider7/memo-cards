@@ -63,6 +63,22 @@
   display: none;
 }
 
+.rating{
+  color: yellow;
+  outline-color: black;
+  font-size: 24pt;
+}
+
+.closeResult{
+  margin-top: 15px;
+  padding: 5px 15px;
+  
+  border-radius: 5px; 
+  background-color: #454545;
+  color: white;
+  font-size: 12pt;
+}
+
 /*
  * ----------------------------------------
  * animation flip

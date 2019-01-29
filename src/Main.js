@@ -12,15 +12,16 @@ class Main extends React.Component {
 	
   constructor() {
     super();
-		this.cols = 6;
-		this.cardCount = 12;
+		this.cols = 3;
+		this.cardCount = 4;
 		this.state = {
 			openedCount: 0,
 			finishedCount: 0,
 			currCardId: -1,
 			cards: [],
 			clickCount: 0,
-			showResult: false
+			showResult: false,
+			hints: 0
 		}
   }
   
@@ -135,7 +136,39 @@ class Main extends React.Component {
   }
 
   getHint = () => {
-    //
+  	let arr = copyArray(this.state.cards),
+		finishedCount = this.state.finishedCount;
+		let hints = this.state.hints;
+		let k = -1;
+		if (this.state.openedCount === 0){
+			for (let i = 0; i < arr.length; i++) {
+	  		if (!arr[i].finished) { 
+	  			k = i; 
+	  			break;
+	  		}
+	  	}
+		} else {
+		  	for (let i = 0; i < arr.length; i++){
+		  		if (arr[i].opened && !arr[i].finished) {
+		  			k = i;
+		  			break;
+		  		}
+		  	}
+		  }
+		if (k < 0) {return } else {hints++}
+
+		for (let i = 0; i < arr.length; i++){
+			if (arr[i].img === arr[k].img){
+				arr[i].opened = true;
+				arr[k].opened = true;
+			}
+		}  
+		  
+  	this.setState({
+  		cards: arr,
+  		hints: hints
+  	})
+  	setTimeout(() => {this.closeCards()}, 1000)
   }
 
   initBoard = () =>{
@@ -145,7 +178,8 @@ class Main extends React.Component {
 			currCardId: -1,
 			cards: this.prepareCardsStateArray(this.cardCount),
 			clickCount: 0,
-			showResult: true
+			showResult: false,
+			hints: 0
   	})
   };
 
@@ -176,6 +210,7 @@ class Main extends React.Component {
           onClose={this.closeResult}
           cardCount={this.state.cards.length}
           clickCount={this.state.clickCount}
+          hintCount={this.state.hints}
         />
 
         <CardsTable
