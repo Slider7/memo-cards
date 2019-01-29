@@ -48,7 +48,6 @@
   z-index: 99;
   background: white;
   width: 60%;
-  height: 30%;
   top: 20%;
   background-color: lightgreen;
   border: 2px solid #454545;
@@ -70,7 +69,8 @@
 }
 
 .closeResult{
-  margin-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px 15px;
   
   border-radius: 5px; 

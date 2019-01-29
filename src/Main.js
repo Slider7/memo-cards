@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader';
 import CardsTable from './CardsTable';
 import Result from './Result';
 import { Button, ButtonGroup } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import './css/style.css';
 import { copyArray, shuffle } from './utils.js';
 
@@ -12,8 +13,8 @@ class Main extends React.Component {
 	
   constructor() {
     super();
-		this.cols = 3;
-		this.cardCount = 4;
+		this.cols = 6;
+		this.cardCount = 12;
 		this.state = {
 			openedCount: 0,
 			finishedCount: 0,
@@ -21,7 +22,8 @@ class Main extends React.Component {
 			cards: [],
 			clickCount: 0,
 			showResult: false,
-			hints: 0
+			hints: 0,
+			dropdownOpen: false
 		}
   }
   
@@ -179,7 +181,8 @@ class Main extends React.Component {
 			cards: this.prepareCardsStateArray(this.cardCount),
 			clickCount: 0,
 			showResult: false,
-			hints: 0
+			hints: 0,
+			dropdownOpen: false
   	})
   };
 
@@ -189,6 +192,33 @@ class Main extends React.Component {
 
   checkResult = () => {
     return (this.state.finishedCount == this.state.cards.length);
+  }
+
+	toggle = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+  	})
+  }
+
+  changeDiff = (event) => {
+  	switch (event.target.id){
+  		case "1":{
+  			this.cols = 4;
+  			this.cardCount = 6;
+  			break;	
+  		}
+  		case "2":{
+  			this.cols = 4;
+  			this.cardCount = 8;
+  			break;	
+  		}
+  		default:{
+  			this.cols = 6;
+  			this.cardCount = 12;
+  			break;	
+  		}
+  	}
+  	this.initBoard();
   }
 
   componentDidMount(){
@@ -203,6 +233,17 @@ class Main extends React.Component {
         <ButtonGroup>
           <Button color="primary" onClick={this.initBoard}>Рестарт</Button>
           <Button color="warning" onClick={this.getHint}>Подсказка</Button>
+
+					<ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+		        <DropdownToggle caret>
+		          Сложность 
+		        </DropdownToggle>
+		        <DropdownMenu>
+		          <DropdownItem id="1" onClick={this.changeDiff}>12шт. (4 х 3)</DropdownItem>
+		          <DropdownItem id="2" onClick={this.changeDiff}>16шт. (4 х 4)</DropdownItem>
+		          <DropdownItem id="3" onClick={this.changeDiff}>24шт. (6 х 4)</DropdownItem>
+		        </DropdownMenu>
+		      </ButtonDropdown>
         </ButtonGroup>
         
         <Result 

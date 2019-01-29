@@ -24,8 +24,9 @@ function Result(props){
 	return (
 		<div className={props.isOpen ? "result" : "result closed"}>
 			<h2>Игра окончена</h2>
-			<h2>Количество кликов: {props.clickCount} </h2>
-			<h2>Рейтинг: <span className='rating'>{rating} подсказок: {props.hintCount}</span> </h2>
+			<h3>Количество кликов: {props.clickCount}</h3>
+			<h3>Использовано подсказок: {props.hintCount}</h3>
+			<h3>Рейтинг: <span className='rating'>{rating}</span> </h3>
 			<button onClick={props.onClose} className="closeResult">Закрыть</button>
 		</div>
 	)
