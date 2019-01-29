@@ -145,7 +145,7 @@ class Main extends React.Component {
 			currCardId: -1,
 			cards: this.prepareCardsStateArray(this.cardCount),
 			clickCount: 0,
-			showResult: false
+			showResult: true
   	})
   };
 
@@ -171,7 +171,12 @@ class Main extends React.Component {
           <Button color="warning" onClick={this.getHint}>Подсказка</Button>
         </ButtonGroup>
         
-        <Result isOpen={this.state.showResult} onClose={this.closeResult}/>
+        <Result 
+          isOpen={this.state.showResult} 
+          onClose={this.closeResult}
+          cardCount={this.state.cards.length}
+          clickCount={this.state.clickCount}
+        />
 
         <CardsTable
         	clickCard = {this.clickCard}

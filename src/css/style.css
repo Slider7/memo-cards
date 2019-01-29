@@ -48,11 +48,15 @@
   z-index: 99;
   background: white;
   width: 60%;
-  height: 60%;
+  height: 30%;
   top: 20%;
-  background-color: yellow;
-  border: 1px solid darkgrey;
+  background-color: lightgreen;
+  border: 2px solid #454545;
   border-radius: 7px;
+  text-align: center;
+  padding-top: 20px;
+  box-shadow: 10px 10px 25px #152515;
+  line-height: 20pt;
 }
 
 .closed{
