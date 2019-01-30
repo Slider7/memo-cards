@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from './Card.jsx';
-import { shuffle } from './utils.js';
-
+import Card from './Card.js';
 
 const CardsTable = (props) => {
 	const colWidtn = (120 + 2) * props.cols + (props.cols) * 6 ;

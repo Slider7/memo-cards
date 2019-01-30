@@ -1,6 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import Main from './Main';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App.js';
 
-ReactDOM.render(<Main name="MemoGame" />, document.getElementById("app"));
-
+ReactDOM.render(<App />, document.getElementById("root"));

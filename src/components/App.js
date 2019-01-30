@@ -1,15 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { hot } from 'react-hot-loader';
 import CardsTable from './CardsTable';
 import Result from './Result';
 import { Button, ButtonGroup } from 'reactstrap';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import './css/style.css';
-import { copyArray, shuffle } from './utils.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/App.css';
+import { copyArray, shuffle } from '../utils/utils.js';
 
-class Main extends React.Component {
+class App extends React.Component {
 	
   constructor() {
     super();
@@ -266,4 +265,4 @@ class Main extends React.Component {
 
 }
 
-export default hot(module)(Main);
+export default App;
